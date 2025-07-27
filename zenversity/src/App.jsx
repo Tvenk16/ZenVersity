@@ -1,5 +1,7 @@
+
 import MoodTracker from './components/MoodTracker';
 import StressTracker from './components/StressTracker';
+import Journal from './components/Journal';
 
 function App() {
   // Replace with actual userId from auth if available
@@ -9,6 +11,7 @@ function App() {
       <h1 className="text-4xl font-bold text-purple-700 mb-6">ZenVersity</h1>
       <MoodTracker userId={userId} />
       <StressTracker userId={userId} />
+      <Journal userId={userId} />
     </div>
   );
 }
