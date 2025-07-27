@@ -1,7 +1,7 @@
 // ...existing code...
 // src/components/StressTracker.jsx
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, query, where, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, query, where, orderBy, onSnapshot, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const StressTracker = ({ userId = 'demoUser' }) => {
@@ -56,7 +56,6 @@ const StressTracker = ({ userId = 'demoUser' }) => {
 
   const handleStressSubmit = async () => {
     if (!userId) return;
-    
     setLoading(true);
     try {
       await addDoc(collection(db, 'stress'), {
@@ -64,10 +63,9 @@ const StressTracker = ({ userId = 'demoUser' }) => {
         level: stressLevel,
         source: stressSource,
         emoji: getStressEmoji(stressLevel),
-        timestamp: new Date(),
+        timestamp: Timestamp.now(),
         date: new Date().toDateString()
       });
-      
       setStressSource(''); // Reset form
     } catch (error) {
       console.error('Error saving stress level:', error);
