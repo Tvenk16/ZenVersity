@@ -1,7 +1,9 @@
 
+
 import MoodTracker from './components/MoodTracker';
 import StressTracker from './components/StressTracker';
 import Journal from './components/Journal';
+import DeadlineTracker from './components/DeadlineTracker';
 
 function App() {
   // Replace with actual userId from auth if available
@@ -12,6 +14,7 @@ function App() {
       <MoodTracker userId={userId} />
       <StressTracker userId={userId} />
       <Journal userId={userId} />
+      <DeadlineTracker userId={userId} />
     </div>
   );
 }
