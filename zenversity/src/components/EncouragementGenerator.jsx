@@ -102,49 +102,107 @@ const EncouragementGenerator = () => {
   }, []);
 
   return (
-    <div className="encouragement-generator bg-white rounded-lg shadow p-6 mb-6 w-full max-w-md mx-auto">
-      <h3 className="text-xl font-bold mb-4 text-center">Daily Encouragement ✨</h3>
-      <div className="quote-container mb-4">
-        {isGenerating ? (
-          <div className="generating flex flex-col items-center">
-            <div className="spinner text-3xl mb-2">🔄</div>
-            <p>Generating encouragement...</p>
-          </div>
-        ) : currentQuote ? (
-          <div className="quote-card flex flex-col items-center">
-            <div className="quote-emoji text-4xl mb-2">{currentQuote.emoji}</div>
-            <blockquote className="quote-text italic text-center">"{currentQuote.text}"</blockquote>
-          </div>
-        ) : (
-          <div className="quote-placeholder">
-            <p>Click the button below for some encouragement!</p>
-          </div>
-        )}
+    <div style={{
+      background: 'linear-gradient(135deg, #bbf7d0 0%, #2563eb 100%)',
+      borderRadius: '16px',
+      boxShadow: '0 6px 20px rgba(0,0,0,0.08)',
+      padding: '2rem',
+      maxWidth: '400px',
+      margin: '2rem auto',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }}>
+      <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '1.5rem', color: '#166534', textAlign: 'center' }}>
+        Daily Encouragement ✨
+      </h3>
+      <div style={{ minHeight: '120px', width: '100%', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+        <div
+          style={{
+            opacity: isGenerating ? 0 : 1,
+            transition: 'opacity 0.5s',
+            position: 'absolute',
+            width: '100%',
+            left: 0,
+            top: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          {currentQuote && (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '1rem', color: '#166534' }}>{currentQuote.emoji}</div>
+              <blockquote style={{ fontSize: '1.1rem', fontStyle: 'italic', color: '#166534', lineHeight: '1.5', margin: 0, textAlign: 'center' }}>
+                "{currentQuote.text}"
+              </blockquote>
+            </div>
+          )}
+        </div>
+        <div
+          style={{
+            opacity: isGenerating ? 1 : 0,
+            transition: 'opacity 0.5s',
+            position: 'absolute',
+            width: '100%',
+            left: 0,
+            top: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            pointerEvents: 'none',
+          }}
+        >
+          <div style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#2563eb' }}>🔄</div>
+        </div>
       </div>
+      {/* Blue tab with dice emoji */}
       <button
         onClick={generateQuote}
         disabled={isGenerating}
-        className="bg-purple-500 text-white px-4 py-2 rounded shadow hover:bg-purple-600 w-full mb-4"
+        style={{
+          position: 'absolute',
+          right: '-32px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          background: '#2563eb',
+          color: 'white',
+          border: 'none',
+          borderRadius: '16px',
+          width: '64px',
+          height: '64px',
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+          cursor: isGenerating ? 'not-allowed' : 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'background 0.2s',
+        }}
+        title="Generate encouragement"
       >
-        {isGenerating ? 'Generating...' : '🎲 New Encouragement'}
+        🎲
       </button>
-      <div className="encouragement-tips">
-        <h4 className="font-semibold mb-2">💡 Quick Mood Boosters</h4>
-        <div className="grid grid-cols-2 gap-2">
-          <div className="tip-item bg-blue-100 rounded p-2 flex items-center gap-2">
-            <span className="tip-emoji">🎵</span>
+      {/* Quick Mood Boosters section */}
+      <div style={{ marginTop: '2rem', width: '100%' }}>
+        <h4 style={{ fontWeight: 600, marginBottom: '1rem', color: '#2563eb' }}>💡 Quick Mood Boosters</h4>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+          <div style={{ background: '#dbeafe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2563eb' }}>
+            <span>🎵</span>
             <span>Listen to your favorite song</span>
           </div>
-          <div className="tip-item bg-green-100 rounded p-2 flex items-center gap-2">
-            <span className="tip-emoji">📞</span>
+          <div style={{ background: '#e0f2fe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#166534' }}>
+            <span>📞</span>
             <span>Call someone who makes you laugh</span>
           </div>
-          <div className="tip-item bg-yellow-100 rounded p-2 flex items-center gap-2">
-            <span className="tip-emoji">🌳</span>
+          <div style={{ background: '#dbeafe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2563eb' }}>
+            <span>🌳</span>
             <span>Step outside for fresh air</span>
           </div>
-          <div className="tip-item bg-purple-100 rounded p-2 flex items-center gap-2">
-            <span className="tip-emoji">🍫</span>
+          <div style={{ background: '#e0f2fe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#166534' }}>
+            <span>🍫</span>
             <span>Treat yourself to something nice</span>
           </div>
         </div>

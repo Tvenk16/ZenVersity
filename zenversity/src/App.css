@@ -11,7 +11,7 @@ body, html, #root {
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
-  background: #f7f7ff;
+  background: linear-gradient(135deg, #43e6c2 0%, #009ace 100%);
 }
 
 /* Remove all other UI styles */

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+import './App.css';
+import EncouragementGenerator from './components/EncouragementGenerator';
 
 // Mock data for demo
 const mockMoodData = [
@@ -37,11 +39,11 @@ function ZenVersity() {
   const tabs = [
     { id: 'dashboard', name: '🏠 Dashboard' },
     { id: 'mood', name: '😊 Mood Tracker' },
-    { id: 'deadlines', name: '� Deadline Tracker' },
+    { id: 'deadlines', name: '📅 Deadline Tracker' },
     { id: 'encouragement', name: '🌟 Encouragement Generator' },
     { id: 'journal', name: '📝 Journal' },
     { id: 'moodgraph', name: '📈 Mood Graph' },
-    { id: 'stress', name: '� Stress Tracker' },
+    { id: 'stress', name: '😰 Stress Tracker' },
     { id: 'summary', name: '📊 Summary' }
   ];
 
@@ -69,7 +71,7 @@ function ZenVersity() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #66c9eaff 0%, #4b89a2ff 100%)' }}>
       <div style={{ background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(10px)', minHeight: '100vh' }}>
         {/* Header */}
         <header style={{
@@ -1066,128 +1068,6 @@ function DeadlineTracker({ tasks, setTasks }) {
   );
 }
 
-// Encouragement Generator Component
-function EncouragementGenerator() {
-  const [currentQuote, setCurrentQuote] = useState(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const encouragementQuotes = [
-    {
-      text: "You are stronger than you think and more capable than you imagine.",
-      emoji: "💪"
-    },
-    {
-      text: "Every college application you complete is a step toward your future.",
-      emoji: "🎓"
-    },
-    {
-      text: "Your worth isn't determined by acceptance letters. You're amazing either way.",
-      emoji: "⭐"
-    },
-    {
-      text: "It's okay to feel overwhelmed. Take it one day at a time.",
-      emoji: "🌅"
-    },
-    {
-      text: "You've overcome challenges before, and you'll overcome this too.",
-      emoji: "🌟"
-    },
-    {
-      text: "Your mental health matters more than perfect grades.",
-      emoji: "🧠"
-    },
-    {
-      text: "Progress, not perfection. You're doing great!",
-      emoji: "📈"
-    },
-    {
-      text: "Remember to breathe, rest, and be kind to yourself.",
-      emoji: "🫁"
-    }
-  ];
-
-  const generateQuote = () => {
-    setIsGenerating(true);
-    
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * encouragementQuotes.length);
-      setCurrentQuote(encouragementQuotes[randomIndex]);
-      setIsGenerating(false);
-    }, 500);
-  };
-
-  React.useEffect(() => {
-    generateQuote();
-  }, []);
-
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{
-        margin: '1.5rem 0',
-        minHeight: '120px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        {isGenerating ? (
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            <div style={{
-              fontSize: '1.5rem',
-              animation: 'spin 1s linear infinite'
-            }}>🔄</div>
-            <p>Generating encouragement...</p>
-          </div>
-        ) : currentQuote ? (
-          <div style={{
-            background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-            padding: '2rem',
-            borderRadius: '12px',
-            border: '1px solid #f59e0b',
-            maxWidth: '500px',
-            margin: '0 auto'
-          }}>
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>
-              {currentQuote.emoji}
-            </div>
-            <blockquote style={{
-              fontSize: '1.1rem',
-              fontStyle: 'italic',
-              color: '#92400e',
-              lineHeight: '1.5',
-              margin: 0
-            }}>
-              "{currentQuote.text}"
-            </blockquote>
-          </div>
-        ) : null}
-      </div>
-      
-      <button
-        onClick={generateQuote}
-        disabled={isGenerating}
-        style={{
-          background: isGenerating ? '#9ca3af' : 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-          color: 'white',
-          border: 'none',
-          padding: '0.75rem 1.5rem',
-          borderRadius: '8px',
-          fontSize: '1rem',
-          fontWeight: '500',
-          cursor: isGenerating ? 'not-allowed' : 'pointer',
-          marginBottom: '2rem'
-        }}
-      >
-        {isGenerating ? 'Generating...' : '🎲 New Encouragement'}
-      </button>
-    </div>
-  );
-}
-
 // Insights Page Component
 function InsightsPage({ moodData, stressData }) {
   return (
@@ -1433,129 +1313,69 @@ function MoodGraph({ moodData }) {
 
 // Weekly Summary Component
 function WeeklySummary({ moodData, stressData }) {
-  const avgMood = moodData.length > 0 ? 
-    (moodData.reduce((sum, item) => sum + (item.mood || 0), 0) / moodData.length).toFixed(1) : 0;
-  
-  const avgStress = stressData.length > 0 ? 
-    (stressData.reduce((sum, item) => sum + (item.level || 0), 0) / stressData.length).toFixed(1) : 0;
+  // Calculate averages
+  const avgMood = moodData.length > 0 ? (moodData.reduce((sum, item) => sum + (item.mood || 0), 0) / moodData.length).toFixed(1) : 0;
+  const avgStress = stressData.length > 0 ? (stressData.reduce((sum, item) => sum + (item.level || 0), 0) / stressData.length).toFixed(1) : 0;
+
+  // Find most common stressors
+  const stressorCounts = {};
+  stressData.forEach(item => {
+    if (item.source) {
+      stressorCounts[item.source] = (stressorCounts[item.source] || 0) + 1;
+    }
+  });
+  const topStressors = Object.entries(stressorCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+
+  // Mood trend (last 7 days)
+  const last7 = moodData.slice(-7);
+  const moodTrend = last7.length > 1 ? last7[last7.length - 1].mood - last7[0].mood : null;
 
   return (
-    <div>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '1rem',
-        marginBottom: '2rem'
-      }}>
-        <div style={{
-          background: 'white',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          textAlign: 'center',
-          border: '1px solid #e5e7eb',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-          borderLeft: '4px solid #10b981'
-        }}>
-          <h4 style={{
-            fontSize: '0.9rem',
-            color: '#6b7280',
-            marginBottom: '0.5rem',
-            textTransform: 'uppercase',
-            fontWeight: '600',
-            letterSpacing: '0.05em'
-          }}>
-            😊 Average Mood
-          </h4>
-          <div style={{
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            color: '#1f2937',
-            marginBottom: '0.25rem'
-          }}>
-            {avgMood}/10
-          </div>
+    <div style={{ maxWidth: '700px', margin: '0 auto', background: 'white', borderRadius: '12px', padding: '2rem', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', border: '1px solid #e5e7eb' }}>
+      <h2 style={{ marginBottom: '2rem', color: '#1f2937', textAlign: 'center' }}>Weekly Summary & Insights</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+        <div style={{ background: '#f9fafb', borderRadius: '8px', padding: '1rem', textAlign: 'center', border: '1px solid #e5e7eb' }}>
+          <h4 style={{ color: '#6b7280', marginBottom: '0.5rem' }}>😊 Average Mood</h4>
+          <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#10b981' }}>{avgMood}/10</div>
         </div>
-        
-        <div style={{
-          background: 'white',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          textAlign: 'center',
-          border: '1px solid #e5e7eb',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-          borderLeft: '4px solid #ef4444'
-        }}>
-          <h4 style={{
-            fontSize: '0.9rem',
-            color: '#6b7280',
-            marginBottom: '0.5rem',
-            textTransform: 'uppercase',
-            fontWeight: '600',
-            letterSpacing: '0.05em'
-          }}>
-            😰 Average Stress
-          </h4>
-          <div style={{
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            color: '#1f2937',
-            marginBottom: '0.25rem'
-          }}>
-            {avgStress}/10
+        <div style={{ background: '#f9fafb', borderRadius: '8px', padding: '1rem', textAlign: 'center', border: '1px solid #e5e7eb' }}>
+          <h4 style={{ color: '#6b7280', marginBottom: '0.5rem' }}>😰 Average Stress</h4>
+          <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ef4444' }}>{avgStress}/10</div>
+        </div>
+        <div style={{ background: '#f9fafb', borderRadius: '8px', padding: '1rem', textAlign: 'center', border: '1px solid #e5e7eb' }}>
+          <h4 style={{ color: '#6b7280', marginBottom: '0.5rem' }}>📈 Mood Trend</h4>
+          <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: moodTrend > 0 ? '#10b981' : moodTrend < 0 ? '#ef4444' : '#6b7280' }}>
+            {moodTrend === null ? 'N/A' : moodTrend > 0 ? `Up ${moodTrend}` : moodTrend < 0 ? `Down ${Math.abs(moodTrend)}` : 'Stable'}
           </div>
         </div>
       </div>
-
+      <div style={{ marginBottom: '2rem' }}>
+        <h3 style={{ color: '#1f2937', marginBottom: '1rem' }}>Top Stressors</h3>
+        {topStressors.length === 0 ? (
+          <div style={{ color: '#6b7280', textAlign: 'center' }}>No stressor data yet.</div>
+        ) : (
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {topStressors.map(([source, count], idx) => (
+              <li key={source} style={{ background: '#fef2f2', borderRadius: '8px', border: '1px solid #fecaca', padding: '0.75rem', marginBottom: '0.5rem', display: 'flex', alignItems: 'center' }}>
+                <span style={{ fontWeight: 'bold', color: '#dc2626', marginRight: '1rem' }}>{idx + 1}.</span>
+                <span style={{ flex: 1, color: '#374151' }}>{source}</span>
+                <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>{count} times</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <div>
-        <h4 style={{ color: '#1f2937', marginBottom: '1rem' }}>💡 Weekly Insights</h4>
-        <div>
-          {avgMood >= 7 && (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-              padding: '0.75rem',
-              borderRadius: '8px',
-              marginBottom: '0.5rem',
-              fontSize: '0.9rem',
-              background: '#f0fdf4',
-              color: '#166534',
-              border: '1px solid #bbf7d0'
-            }}>
-              <span style={{ fontSize: '1.2rem' }}>😊</span>
-              <span>Great week for mood! Your average was {avgMood}/10.</span>
-            </div>
-          )}
-          {avgStress >= 7 && (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-              padding: '0.75rem',
-              borderRadius: '8px',
-              marginBottom: '0.5rem',
-              fontSize: '0.9rem',
-              background: '#fef3c7',
-              color: '#92400e',
-              border: '1px solid #fde68a'
-            }}>
-              <span style={{ fontSize: '1.2rem' }}>⚠️</span>
-              <span>High stress levels detected ({avgStress}/10). Time for stress management?</span>
-            </div>
-          )}
-          {moodData.length === 0 && stressData.length === 0 && (
-            <div style={{
-              textAlign: 'center',
-              padding: '2rem',
-              color: '#6b7280',
-              background: '#f9fafb',
-              borderRadius: '8px',
-              border: '1px solid #e5e7eb'
-            }}>
-              <p>Track more data throughout the week to get personalized insights!</p>
-            </div>
-          )}
-        </div>
+        <h3 style={{ color: '#1f2937', marginBottom: '1rem' }}>Weekly Insights</h3>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {avgMood >= 7 && <li style={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0', borderRadius: '8px', padding: '0.75rem', marginBottom: '0.5rem' }}>😊 Great week for mood! Keep it up.</li>}
+          {avgStress >= 7 && <li style={{ background: '#fef3c7', color: '#92400e', border: '1px solid #fde68a', borderRadius: '8px', padding: '0.75rem', marginBottom: '0.5rem' }}>⚠️ High stress detected. Try some relaxation techniques.</li>}
+          {moodTrend > 0 && <li style={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0', borderRadius: '8px', padding: '0.75rem', marginBottom: '0.5rem' }}>📈 Your mood improved this week!</li>}
+          {moodTrend < 0 && <li style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: '8px', padding: '0.75rem', marginBottom: '0.5rem' }}>📉 Mood dropped this week. Take care of yourself.</li>}
+          {topStressors.length === 0 && <li style={{ color: '#6b7280', textAlign: 'center' }}>Log more stress data to see insights.</li>}
+        </ul>
       </div>
     </div>
   );

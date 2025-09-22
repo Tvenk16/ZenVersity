@@ -76,7 +76,8 @@ const Journal = ({ userId = 'demoUser' }) => {
 
   const usePrompt = (prompt) => {
     setSelectedPrompt(prompt);
-    setEntry(entry + (entry ? '\n\n' : '') + prompt + '\n\n');
+    // Only set the prompt, do not append it to the entry
+    // setEntry(entry + (entry ? '\n\n' : '') + prompt + '\n\n');
   };
 
   const getWordCount = () => {
