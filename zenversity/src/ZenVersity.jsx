@@ -71,20 +71,19 @@ function ZenVersity() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #66c9eaff 0%, #4b89a2ff 100%)' }}>
-      <div style={{ background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(10px)', minHeight: '100vh' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--gradient)' }}>
+      <div style={{ background: 'rgba(255, 255, 255, 0.82)', backdropFilter: 'blur(14px)', minHeight: '100vh' }}>
         {/* Header */}
         <header style={{
-          background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
-          color: 'white',
-          padding: '2rem 0',
-          textAlign: 'center',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+          background: 'transparent',
+          color: 'var(--color-title)',
+          padding: '2.5rem 0 2rem',
+          textAlign: 'center'
         }}>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontWeight: '700' }}>
-            🧘‍♀️ ZenVersity
+          <h1 style={{ fontSize: '2.75rem', marginBottom: '0.5rem', fontWeight: 700, letterSpacing: '-0.5px', color: 'var(--color-title)' }}>
+            🧘‍♂️ ZenVersity
           </h1>
-          <p style={{ fontSize: '1.1rem', opacity: '0.9' }}>
+          <p style={{ fontSize: '1.05rem', opacity: 0.9, maxWidth: '640px', margin: '0 auto', color: 'var(--color-heading)' }}>
             Your mental health companion during college applications
           </p>
         </header>
@@ -93,29 +92,32 @@ function ZenVersity() {
         <nav style={{
           display: 'flex',
           justifyContent: 'center',
-          background: 'white',
-          borderBottom: '1px solid #e5e7eb',
+          background: 'rgba(255,255,255,0.55)',
+          backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid rgba(255,255,255,0.4)',
           padding: '0 1rem',
           overflowX: 'auto',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.04)'
         }}>
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                background: 'none',
+                background: activeTab === tab.id ? 'var(--color-primary)' : 'transparent',
+                color: activeTab === tab.id ? '#ffffff' : 'var(--color-heading)',
                 border: 'none',
-                padding: '1rem 1.5rem',
-                fontSize: '0.9rem',
-                fontWeight: '500',
+                padding: '0.85rem 1.25rem',
+                fontSize: '0.85rem',
+                fontWeight: 500,
                 cursor: 'pointer',
-                transition: 'all 0.2s',
-                borderBottom: `3px solid ${activeTab === tab.id ? '#4f46e5' : 'transparent'}`,
-                whiteSpace: 'nowrap',
-                color: activeTab === tab.id ? '#4f46e5' : '#6b7280',
-                backgroundColor: activeTab === tab.id ? '#f0f9ff' : 'transparent'
+                transition: 'all 0.25s',
+                borderRadius: '999px',
+                margin: '0.5rem 0.4rem',
+                boxShadow: activeTab === tab.id ? '0 4px 12px rgba(59,130,246,0.35)' : 'none'
               }}
+              onMouseEnter={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.35)'; }}
+              onMouseLeave={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'transparent'; }}
             >
               {tab.name}
             </button>
@@ -136,54 +138,33 @@ function Dashboard() {
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <h2 style={{ fontSize: '2rem', color: '#1f2937', marginBottom: '0.5rem' }}>
+        <h2 style={{ fontSize: '2rem', color: 'var(--color-heading)', marginBottom: '0.5rem', fontWeight: 600 }}>
           Welcome back! 👋
         </h2>
-        <p style={{ fontSize: '1.1rem', color: '#6b7280' }}>
+        <p style={{ fontSize: '1.05rem', color: 'var(--color-text)' }}>
           How are you feeling today? Let's check in with yourself.
         </p>
       </div>
-      
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
         gap: '1.5rem',
         marginBottom: '2rem'
       }}>
-        <div style={{
-          background: 'white',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-          border: '1px solid #e5e7eb'
-        }}>
-          <h3 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '0.5rem' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--color-heading)', marginBottom: '0.5rem', fontWeight: 600 }}>
             Quick Mood Check
           </h3>
-          <p style={{ color: '#6b7280' }}>Log how you're feeling right now</p>
+          <p style={{ color: 'var(--color-text)', fontSize: '0.9rem' }}>Log how you're feeling right now</p>
         </div>
-        
-        <div style={{
-          background: 'white',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-          border: '1px solid #e5e7eb'
-        }}>
-          <h3 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '0.5rem' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--color-heading)', marginBottom: '0.5rem', fontWeight: 600 }}>
             Stress Level
           </h3>
-          <p style={{ color: '#6b7280' }}>Rate your current stress (0-10)</p>
+          <p style={{ color: 'var(--color-text)', fontSize: '0.9rem' }}>Rate your current stress (0-10)</p>
         </div>
-        
-        <div style={{
-          background: 'white',
-          padding: '1.5rem',
-          borderRadius: '12px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-          border: '1px solid #e5e7eb'
-        }}>
-          <h3 style={{ fontSize: '1.2rem', color: '#1f2937', marginBottom: '0.5rem' }}>
+        <div className="card" style={{ padding: '1.5rem' }}>
+          <h3 style={{ fontSize: '1.1rem', color: 'var(--color-heading)', marginBottom: '0.75rem', fontWeight: 600 }}>
             Daily Encouragement
           </h3>
           <EncouragementGenerator />
