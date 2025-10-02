@@ -72,7 +72,7 @@ function ZenVersity() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--gradient)' }}>
-      <div style={{ background: 'rgba(255, 255, 255, 0.82)', backdropFilter: 'blur(14px)', minHeight: '100vh' }}>
+      <div style={{ background: 'rgba(255, 255, 255, 0.78)', backdropFilter: 'blur(16px)', minHeight: '100vh' }}>
         {/* Header */}
         <header style={{
           background: 'transparent',
@@ -80,10 +80,10 @@ function ZenVersity() {
           padding: '2.5rem 0 2rem',
           textAlign: 'center'
         }}>
-          <h1 style={{ fontSize: '2.75rem', marginBottom: '0.5rem', fontWeight: 700, letterSpacing: '-0.5px', color: 'var(--color-title)' }}>
+          <h1 style={{ fontSize: '2.75rem', marginBottom: '0.5rem', fontWeight: 700, letterSpacing: '-0.5px', color: 'var(--color-title)', textShadow: '0 4px 10px rgba(0,0,0,0.18)' }}>
             🧘‍♂️ ZenVersity
           </h1>
-          <p style={{ fontSize: '1.05rem', opacity: 0.9, maxWidth: '640px', margin: '0 auto', color: 'var(--color-heading)' }}>
+          <p style={{ fontSize: '1.05rem', opacity: 0.95, maxWidth: '640px', margin: '0 auto', color: 'var(--color-heading)', textShadow: '0 2px 4px rgba(0,0,0,0.12)' }}>
             Your mental health companion during college applications
           </p>
         </header>
@@ -104,9 +104,9 @@ function ZenVersity() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                background: activeTab === tab.id ? 'var(--color-primary)' : 'transparent',
+                background: activeTab === tab.id ? 'linear-gradient(135deg,#1d4ed8,#1e3a8a)' : 'rgba(255,255,255,0.15)',
                 color: activeTab === tab.id ? '#ffffff' : 'var(--color-heading)',
-                border: 'none',
+                border: '1px solid rgba(255,255,255,0.35)',
                 padding: '0.85rem 1.25rem',
                 fontSize: '0.85rem',
                 fontWeight: 500,
@@ -114,10 +114,11 @@ function ZenVersity() {
                 transition: 'all 0.25s',
                 borderRadius: '999px',
                 margin: '0.5rem 0.4rem',
-                boxShadow: activeTab === tab.id ? '0 4px 12px rgba(59,130,246,0.35)' : 'none'
+                boxShadow: activeTab === tab.id ? '0 4px 14px rgba(29,78,216,0.45)' : '0 2px 6px rgba(0,0,0,0.08)',
+                backdropFilter: 'blur(6px)'
               }}
-              onMouseEnter={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.35)'; }}
-              onMouseLeave={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'transparent'; }}
+              onMouseEnter={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.32)'; }}
+              onMouseLeave={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; }}
             >
               {tab.name}
             </button>

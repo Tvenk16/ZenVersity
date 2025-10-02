@@ -103,9 +103,9 @@ const EncouragementGenerator = () => {
 
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #bbf7d0 0%, #2563eb 100%)',
+      background: 'linear-gradient(135deg,#0891b2 0%, #0ea5e9 25%, #2563eb 65%, #1d4ed8 100%)',
       borderRadius: '16px',
-      boxShadow: '0 6px 20px rgba(0,0,0,0.08)',
+      boxShadow: '0 6px 22px rgba(0,0,0,0.18)',
       padding: '2rem',
       maxWidth: '400px',
       margin: '2rem auto',
@@ -113,8 +113,9 @@ const EncouragementGenerator = () => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      color: '#fff'
     }}>
-      <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '1.5rem', color: '#166534', textAlign: 'center' }}>
+      <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '1.5rem', color: 'var(--color-heading)', textAlign: 'center', textShadow: '0 2px 6px rgba(0,0,0,0.15)' }}>
         Daily Encouragement ✨
       </h3>
       <div style={{ minHeight: '120px', width: '100%', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
@@ -133,8 +134,8 @@ const EncouragementGenerator = () => {
         >
           {currentQuote && (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '1rem', color: '#166534' }}>{currentQuote.emoji}</div>
-              <blockquote style={{ fontSize: '1.1rem', fontStyle: 'italic', color: '#166534', lineHeight: '1.5', margin: 0, textAlign: 'center' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '1rem', color: '#ffffff' }}>{currentQuote.emoji}</div>
+              <blockquote style={{ fontSize: '1.1rem', fontStyle: 'italic', color: '#f1f5f9', lineHeight: '1.5', margin: 0, textAlign: 'center', textShadow: '0 2px 4px rgba(0,0,0,0.25)' }}>
                 "{currentQuote.text}"
               </blockquote>
             </div>
@@ -154,7 +155,7 @@ const EncouragementGenerator = () => {
             pointerEvents: 'none',
           }}
         >
-          <div style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#2563eb' }}>🔄</div>
+          <div style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#ffffff' }}>🔄</div>
         </div>
       </div>
       {/* Blue tab with dice emoji */}
@@ -166,20 +167,20 @@ const EncouragementGenerator = () => {
           right: '-32px',
           top: '50%',
           transform: 'translateY(-50%)',
-          background: '#2563eb',
+          background: 'linear-gradient(135deg,#1d4ed8,#1e3a8a)',
           color: 'white',
-          border: 'none',
+          border: '1px solid rgba(255,255,255,0.4)',
           borderRadius: '16px',
           width: '64px',
           height: '64px',
           fontSize: '2rem',
           fontWeight: 'bold',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+          boxShadow: '0 4px 14px rgba(0,0,0,0.25)',
           cursor: isGenerating ? 'not-allowed' : 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: 'background 0.2s',
+          transition: 'background 0.25s, transform 0.25s'
         }}
         title="Generate encouragement"
       >
@@ -201,7 +202,7 @@ const EncouragementGenerator = () => {
             <span>🌳</span>
             <span>Step outside for fresh air</span>
           </div>
-          <div style={{ background: '#e0f2fe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#166534' }}>
+          <div style={{ background: 'rgba(255,255,255,0.14)', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#e0f2fe', backdropFilter: 'blur(4px)' }}>
             <span>🍫</span>
             <span>Treat yourself to something nice</span>
           </div>
