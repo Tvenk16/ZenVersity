@@ -72,7 +72,7 @@ function ZenVersity() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--gradient)' }}>
-      <div style={{ background: 'rgba(255, 255, 255, 0.78)', backdropFilter: 'blur(16px)', minHeight: '100vh' }}>
+      <div style={{ background: 'rgba(255, 255, 255, 0.60)', backdropFilter: 'blur(16px)', minHeight: '100vh' }}>
         {/* Header */}
         <header style={{
           background: 'transparent',
@@ -92,9 +92,9 @@ function ZenVersity() {
         <nav style={{
           display: 'flex',
           justifyContent: 'center',
-          background: 'rgba(255,255,255,0.55)',
+          background: 'rgba(255,255,255,0.45)',
           backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(255,255,255,0.4)',
+          borderBottom: '1px solid rgba(255,255,255,0.35)',
           padding: '0 1rem',
           overflowX: 'auto',
           boxShadow: '0 2px 4px rgba(0, 0, 0, 0.04)'
@@ -104,9 +104,9 @@ function ZenVersity() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                background: activeTab === tab.id ? 'linear-gradient(135deg,#1d4ed8,#1e3a8a)' : 'rgba(255,255,255,0.15)',
-                color: activeTab === tab.id ? '#ffffff' : 'var(--color-heading)',
-                border: '1px solid rgba(255,255,255,0.35)',
+                background: activeTab === tab.id ? 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%)' : 'rgba(255,255,255,0.12)',
+                color: activeTab === tab.id ? 'var(--color-white)' : 'var(--color-heading)',
+                border: '1px solid rgba(255,255,255,0.28)',
                 padding: '0.85rem 1.25rem',
                 fontSize: '0.85rem',
                 fontWeight: 500,
@@ -114,11 +114,11 @@ function ZenVersity() {
                 transition: 'all 0.25s',
                 borderRadius: '999px',
                 margin: '0.5rem 0.4rem',
-                boxShadow: activeTab === tab.id ? '0 4px 14px rgba(29,78,216,0.45)' : '0 2px 6px rgba(0,0,0,0.08)',
+                boxShadow: activeTab === tab.id ? '0 6px 18px rgba(37,99,235,0.35)' : '0 2px 6px rgba(0,0,0,0.08)',
                 backdropFilter: 'blur(6px)'
               }}
-              onMouseEnter={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.32)'; }}
-              onMouseLeave={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.15)'; }}
+              onMouseEnter={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.28)'; }}
+              onMouseLeave={e => { if(activeTab !== tab.id) e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
             >
               {tab.name}
             </button>

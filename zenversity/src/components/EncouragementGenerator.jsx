@@ -188,21 +188,21 @@ const EncouragementGenerator = () => {
       </button>
       {/* Quick Mood Boosters section */}
       <div style={{ marginTop: '2rem', width: '100%' }}>
-        <h4 style={{ fontWeight: 600, marginBottom: '1rem', color: '#2563eb' }}>💡 Quick Mood Boosters</h4>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-          <div style={{ background: '#dbeafe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2563eb' }}>
+        <h4 style={{ fontWeight: 600, marginBottom: '1rem', color: 'var(--color-primary)' }}>💡 Quick Mood Boosters</h4>
+        <div className="mood-grid">
+          <div className="mood-box">
             <span>🎵</span>
             <span>Listen to your favorite song</span>
           </div>
-          <div style={{ background: '#e0f2fe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#166534' }}>
+          <div className="mood-box">
             <span>📞</span>
             <span>Call someone who makes you laugh</span>
           </div>
-          <div style={{ background: '#dbeafe', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2563eb' }}>
+          <div className="mood-box">
             <span>🌳</span>
             <span>Step outside for fresh air</span>
           </div>
-          <div style={{ background: 'rgba(255,255,255,0.14)', borderRadius: '8px', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#e0f2fe', backdropFilter: 'blur(4px)' }}>
+          <div className="mood-box">
             <span>🍫</span>
             <span>Treat yourself to something nice</span>
           </div>
