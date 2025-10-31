@@ -1,6 +1,6 @@
 // src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -20,7 +20,7 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 
 // Add Google sign-in helper
-const googleProvider = new GoogleAuthProvider();
+export const googleProvider = new GoogleAuthProvider();
 
 export function loginWithGoogle() {
   return signInWithPopup(auth, googleProvider)
@@ -32,6 +32,19 @@ export function loginWithGoogle() {
       console.error("Google sign-in error:", error);
       throw error;
     });
+}
+
+// Sign out wrapper
+export function signOutUser() {
+  return fbSignOut(auth).catch(err => {
+    console.error('Sign-out error:', err);
+    throw err;
+  });
+}
+
+// onAuthChange: register a listener and return unsubscribe
+export function onAuthChange(callback) {
+  return onAuthStateChanged(auth, callback);
 }
 
 // Save a mood entry to Firestore under the authenticated user's document
