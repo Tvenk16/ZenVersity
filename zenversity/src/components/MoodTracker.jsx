@@ -1,50 +1,62 @@
 // src/components/MoodTracker.jsx
+import React, { useState, useEffect } from "react";
+import { db, auth } from "../services/firebase";
+import { collection, addDoc, query, orderBy, onSnapshot } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
-import React, { useState } from "react";
-import { db } from "../firebase";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+export default function MoodTracker() {
+  const [user, setUser] = useState(null);
+  const [mood, setMood] = useState("");
+  const [entries, setEntries] = useState([]);
 
-const emojis = ["😃", "🙂", "😐", "😔", "😢"];
+  useEffect(() => {
+    let unsubSnap = null;
+    const unsubAuth = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      if (unsubSnap) {
+        unsubSnap();
+        unsubSnap = null;
+      }
 
-export default function MoodTracker({ userId = 'demoUser' }) {
-  const [selected, setSelected] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+      if (u) {
+        const q = query(collection(db, "users", u.uid, "moods"), orderBy("createdAt", "desc"));
+        unsubSnap = onSnapshot(q, (snap) => setEntries(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
+      } else {
+        setEntries([]);
+      }
+    });
 
-  const handleMood = async (emoji) => {
-    setSelected(emoji);
-    setLoading(true);
-    try {
-      await addDoc(collection(db, "moods"), {
-        userId,
-        emoji,
-        value: emojis.indexOf(emoji) * 2.5 + 2.5, // scale 2.5, 5, 7.5, 10
-        timestamp: Timestamp.now(),
-        date: new Date().toDateString(),
-      });
-      setMessage("Mood saved! 🎉");
-    } catch (e) {
-      setMessage("Error saving mood.");
-    }
-    setLoading(false);
+    return () => {
+      unsubAuth();
+      if (unsubSnap) unsubSnap();
+    };
+  }, []);
+
+  const saveMood = async () => {
+    if (!user || !mood) return;
+    await addDoc(collection(db, "users", user.uid, "moods"), {
+      mood,
+      createdAt: new Date().toISOString()
+    });
+    setMood("");
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6 mb-6 w-full max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4 text-center">How are you feeling today?</h2>
-      <div className="flex justify-center gap-4 mb-4">
-        {emojis.map((emoji) => (
-          <button
-            key={emoji}
-            className={`text-3xl p-2 rounded-full border-2 ${selected === emoji ? "border-blue-500" : "border-gray-200"}`}
-            onClick={() => handleMood(emoji)}
-            disabled={loading}
-          >
-            {emoji}
-          </button>
-        ))}
-      </div>
-      {message && <div className="text-center text-green-600 mt-2">{message}</div>}
+    <div className="card">
+      {!user ? (
+        <p>Please sign in to save moods.</p>
+      ) : (
+        <>
+          <h3>How are you feeling?</h3>
+          <input value={mood} onChange={e => setMood(e.target.value)} placeholder="Type feeling or emoji" />
+          <button onClick={saveMood}>Save</button>
+          <ul>
+            {entries.map(e => (
+              <li key={e.id}>{e.mood} — {new Date(e.createdAt).toLocaleString()}</li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
